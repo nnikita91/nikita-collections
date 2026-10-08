@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikita Collections | Girls Fashion Store</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-pink-600 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium">
+        ✨ Free Shipping on Orders Over ₹999 | Use Code: <span class="font-bold underline">NIKITA10</span> ✨
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-2">
+                <span
+                    class="font-playfair text-2xl sm:text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                    Nikita Collections
+                </span>
+            </a>
+
+            <!-- Search Bar (Desktop) -->
+            <div class="hidden md:flex items-center flex-1 max-w-md mx-8">
+                <div class="relative w-full">
+                    <input type="text" id="searchInput" placeholder="Search dresses, kurtis, gowns..."
+                        class="w-full bg-gray-100 border border-transparent focus:border-pink-500 focus:bg-white rounded-full py-2 pl-10 pr-4 text-sm outline-none transition">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-400"></i>
+                </div>
+            </div>
+
+            <!-- Action Icons -->
+            <div class="flex items-center space-x-4 sm:space-x-6">
+                <!-- Wishlist Button -->
+                <button onclick="openWishlist()" class="relative text-gray-700 hover:text-pink-600 transition">
+                    <i class="fa-regular fa-heart text-xl"></i>
+                    <span id="wishlistCount"
+                        class="absolute -top-2 -right-2 bg-pink-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+                <!-- Cart Button -->
+                <button onclick="toggleCart()"
+                    class="relative bg-pink-50 text-pink-600 px-4 py-2 rounded-full flex items-center space-x-2 hover:bg-pink-100 transition">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="text-sm font-semibold hidden sm:inline">Bag</span>
+                    <span id="cartCount"
+                        class="bg-pink-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Search Bar -->
+        <div class="md:hidden px-4 pb-3">
+            <div class="relative w-full">
+                <input type="text" id="mobileSearchInput" placeholder="Search dresses, kurtis, gowns..."
+                    class="w-full bg-gray-100 border border-transparent focus:border-pink-500 focus:bg-white rounded-full py-2 pl-10 pr-4 text-sm outline-none transition">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-400"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="relative bg-gradient-to-r from-pink-50 via-purple-50 to-pink-100 py-16 sm:py-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center text-center">
+            <span
+                class="bg-pink-200/60 text-pink-700 text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full mb-4 uppercase tracking-wider">
+                New Festive Edit 2026
+            </span>
+            <h1 class="font-playfair text-4xl sm:text-6xl font-bold text-gray-900 max-w-3xl leading-tight">
+                Grace & Elegance for Every Young Queen
+            </h1>
+            <p class="mt-4 text-gray-600 text-base sm:text-lg max-w-xl">
+                Explore handpicked ethnic wear, western dresses, and party gowns tailored for trendsetting girls.
+            </p>
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <a href="#shopSection"
+                    class="bg-pink-600 hover:bg-pink-700 text-white font-medium px-8 py-3 rounded-full shadow-lg shadow-pink-600/30 transition transform hover:-translate-y-0.5">
+                    Shop Collection
+                </a>
+                <a href="#shopSection" onclick="filterCategory('All')"
+                    class="bg-white hover:bg-gray-50 text-gray-800 border border-gray-200 font-medium px-8 py-3 rounded-full transition">
+                    Explore All
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Shop Section -->
+    <main id="shopSection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Section Header & Filter Tabs -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4 border-b border-gray-200 pb-4">
+            <div>
+                <h2 class="font-playfair text-3xl font-bold text-gray-900">Featured Collections</h2>
+                <p class="text-gray-500 text-sm mt-1">Browse our latest styles and live stock status</p>
+            </div>
+            <!-- Category Filter Buttons -->
+            <div class="flex flex-wrap gap-2" id="categoryFilters">
+                <button onclick="filterCategory('All')"
+                    class="cat-btn px-4 py-2 text-sm rounded-full bg-pink-600 text-white font-medium transition shadow-sm">All</button>
+                <button onclick="filterCategory('Ethnic Wear')"
+                    class="cat-btn px-4 py-2 text-sm rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium transition">Ethnic
+                    Wear</button>
+                <button onclick="filterCategory('Western Wear')"
+                    class="cat-btn px-4 py-2 text-sm rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium transition">Western
+                    Wear</button>
+                <button onclick="filterCategory('Party Gowns')"
+                    class="cat-btn px-4 py-2 text-sm rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium transition">Party
+                    Gowns</button>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Products loaded dynamically -->
+        </div>
+    </main>
+
+    <!-- Cart Slide-Over Drawer -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="toggleCart()"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+                <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50">
+                    <h3 class="font-playfair text-xl font-bold text-gray-900 flex items-center space-x-2">
+                        <i class="fa-solid fa-bag-shopping text-pink-600"></i>
+                        <span>Your Shopping Bag</span>
+                    </h3>
+                    <button onclick="toggleCart()" class="text-gray-400 hover:text-gray-600 text-lg p-2">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-gray-100">
+                    <!-- Cart items -->
+                </div>
+                <div id="cartFooter" class="border-t border-gray-100 p-6 bg-gray-50">
+                    <div class="flex justify-between text-sm text-gray-600 mb-2">
+                        <span>Subtotal</span>
+                        <span id="cartSubtotal" class="font-semibold text-gray-900">₹0</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-600 mb-4">
+                        <span>Shipping</span>
+                        <span class="text-pink-600 font-medium">Free</span>
+                    </div>
+                    <div
+                        class="flex justify-between text-lg font-bold text-gray-900 mb-6 border-t border-gray-200 pt-3">
+                        <span>Total</span>
+                        <span id="cartTotal">₹0</span>
+                    </div>
+                    <button onclick="checkout()"
+                        class="w-full bg-pink-600 hover:bg-pink-700 text-white py-3.5 rounded-xl font-medium shadow-lg shadow-pink-600/30 transition text-center block">
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div id="wishlistModal" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="openWishlist()"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+                <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50">
+                    <h3 class="font-playfair text-xl font-bold text-gray-900 flex items-center space-x-2">
+                        <i class="fa-solid fa-heart text-pink-600"></i>
+                        <span>Your Wishlist</span>
+                    </h3>
+                    <button onclick="openWishlist()" class="text-gray-400 hover:text-gray-600 text-lg p-2">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div id="wishlistContainer" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-gray-100">
+                    <!-- Wishlist items -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <span class="font-playfair text-2xl font-bold text-white">Nikita Collections</span>
+                <p class="mt-3 text-sm text-gray-400">Your ultimate destination for trendy, elegant, and stylish girls'
+                    wear. Crafted with love & quality fabrics.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-3">Quick Links</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#shopSection" class="hover:text-pink-400 transition">New Arrivals</a></li>
+                    <li><a href="#shopSection" class="hover:text-pink-400 transition">Ethnic Wear</a></li>
+                    <li><a href="#shopSection" class="hover:text-pink-400 transition">Western Dresses</a></li>
+                    <li><a href="#" class="hover:text-pink-400 transition">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-3">Customer Care</h4>
+                <p class="text-sm text-gray-400 mb-2"><i class="fa-solid fa-phone mr-2"></i> +91 98765 43210</p>
+                <p class="text-sm text-gray-400 mb-4"><i class="fa-solid fa-envelope mr-2"></i>
+                    support@nikitacollections.com</p>
+                <div class="flex space-x-4 text-lg">
+                    <a href="#" class="hover:text-pink-400 transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-pink-400 transition"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="hover:text-pink-400 transition"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-gray-800 text-center text-xs text-gray-500">
+            &copy; 2026 Nikita Collections. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        const products = [
+            {
+                id: 1,
+                name: "Royal Velvet Lehenga Choli",
+                category: "Ethnic Wear",
+                price: 2499,
+                originalPrice: 3999,
+                image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&q=80&w=600",
+                inStock: true,
+                rating: 4.8
+            },
+            {
+                id: 2,
+                name: "Pastel Pink Floral Maxi Dress",
+                category: "Western Wear",
+                price: 1499,
+                originalPrice: 2299,
+                image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&q=80&w=600",
+                inStock: true,
+                rating: 4.6
+            },
+            {
+                id: 3,
+                name: "Glitter Satin Princess Gown",
+                category: "Party Gowns",
+                price: 3199,
+                originalPrice: 4500,
+                image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&q=80&w=600",
+                inStock: false, // Out of stock demo item
+                rating: 4.9
+            },
+            {
+                id: 4,
+                name: "Embroidered Anarkali Suit",
+                category: "Ethnic Wear",
+                price: 1899,
+                originalPrice: 2799,
+                image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&q=80&w=600",
+                inStock: true,
+                rating: 4.5
+            },
+            {
+                id: 5,
+                name: "Denim & Pearl Casual Frock",
+                category: "Western Wear",
+                price: 999,
+                originalPrice: 1499,
+                image: "https://images.unsplash.com/photo-1502716119720-b23a93e5fb1b?auto=format&fit=crop&q=80&w=600",
+                inStock: true,
+                rating: 4.3
+            },
+            {
+                id: 6,
+                name: "Ruffled Tulle Ball Gown",
+                category: "Party Gowns",
+                price: 2899,
+                originalPrice: 3800,
+                image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&q=80&w=600",
+                inStock: false, // Out of stock demo item
+                rating: 4.7
+            },
+            {
+                id: 7,
+                name: "Traditional Bandhani Kurti Set",
+                category: "Ethnic Wear",
+                price: 1299,
+                originalPrice: 1999,
+                image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&q=80&w=600",
+                inStock: true,
+                rating: 4.4
+            },
+            {
+                id: 8,
+                name: "Chic Velvet Party Dress",
+                category: "Western Wear",
+                price: 1799,
+                originalPrice: 2499,
+                image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=600",
+                inStock: true,
+                rating: 4.8
+            }
+        ];
+
+        let cart = [];
+        let wishlist = [];
+        let currentFilter = 'All';
+        let searchQuery = '';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateBadges();
+
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase();
+                renderProducts();
+            });
+            document.getElementById('mobileSearchInput').addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase();
+                renderProducts();
+            });
+        });
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+
+            const filtered = products.filter(product => {
+                const matchesCategory = currentFilter === 'All' || product.category === currentFilter;
+                const matchesSearch = product.name.toLowerCase().includes(searchQuery) || product.category.toLowerCase().includes(searchQuery);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="fa-solid fa-shirt text-4xl text-gray-300 mb-3"></i>
+                        <p class="text-gray-500 font-medium">No outfits found matching your search.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(product => {
+                const isWishlisted = wishlist.some(item => item.id === product.id);
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl shadow-sm hover:shadow-xl transition duration-300 overflow-hidden border border-gray-100 flex flex-col group relative";
+
+                card.innerHTML = `
+                    <div class="relative overflow-hidden aspect-[3/4] bg-gray-100">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-3 left-3">
+                            ${product.inStock
+                        ? `<span class="bg-emerald-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm">In Stock</span>`
+                        : `<span class="bg-rose-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm">Out of Stock</span>`
+                    }
+                        </div>
+                        <button onclick="toggleWishlist(${product.id})" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/80 backdrop-blur hover:bg-white flex items-center justify-center text-gray-700 shadow transition">
+                            <i class="${isWishlisted ? 'fa-solid text-pink-600' : 'fa-regular'} fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <span class="text-xs font-medium text-pink-600 uppercase tracking-wider mb-1">${product.category}</span>
+                        <h3 class="font-medium text-gray-900 text-base mb-2 line-clamp-1">${product.name}</h3>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <span class="text-lg font-bold text-gray-900">₹${product.price}</span>
+                            <span class="text-sm text-gray-400 line-through">₹${product.originalPrice}</span>
+                            <span class="text-xs text-emerald-600 font-medium ml-auto">★ ${product.rating}</span>
+                        </div>
+                        <div class="mt-auto">
+                            ${product.inStock
+                        ? `<button onclick="addToCart(${product.id})" class="w-full bg-gray-900 hover:bg-pink-600 text-white text-sm font-medium py-2.5 rounded-xl transition flex items-center justify-center space-x-2 shadow-sm">
+                                       <i class="fa-solid fa-cart-plus"></i>
+                                       <span>Add to Cart</span>
+                                   </button>`
+                        : `<button disabled class="w-full bg-gray-100 text-gray-400 text-sm font-medium py-2.5 rounded-xl cursor-not-allowed">
+                                       Out of Stock
+                                   </button>`
+                    }
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(category) {
+            currentFilter = category;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if (btn.textContent.trim() === category) {
+                    btn.className = "cat-btn px-4 py-2 text-sm rounded-full bg-pink-600 text-white font-medium transition shadow-sm";
+                } else {
+                    btn.className = "cat-btn px-4 py-2 text-sm rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium transition";
+                }
+            });
+            renderProducts();
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product || !product.inStock) return;
+
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateBadges();
+            renderCartItems();
+            toggleCart();
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (!item) return;
+            item.quantity += change;
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.id !== productId);
+            }
+            updateBadges();
+            renderCartItems();
+        }
+
+        function updateBadges() {
+            const totalCartItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalCartItems;
+            document.getElementById('wishlistCount').textContent = wishlist.length;
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cartDrawer');
+            drawer.classList.toggle('hidden');
+            if (!drawer.classList.contains('hidden')) {
+                renderCartItems();
+            }
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cartItemsContainer');
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-16">
+                        <i class="fa-solid fa-bag-shopping text-4xl text-gray-300 mb-3"></i>
+                        <p class="text-gray-500 font-medium">Your shopping bag is empty.</p>
+                    </div>
+                `;
+                document.getElementById('cartSubtotal').textContent = '₹0';
+                document.getElementById('cartTotal').textContent = '₹0';
+                return;
+            }
+
+            let subtotal = 0;
+            cart.forEach(item => {
+                subtotal += item.price * item.quantity;
+                const div = document.createElement('div');
+                div.className = "flex py-4 space-x-4 items-center";
+                div.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-20 object-cover rounded-lg bg-gray-100">
+                    <div class="flex-1">
+                        <h4 class="text-sm font-medium text-gray-900">${item.name}</h4>
+                        <p class="text-sm font-bold text-gray-900 mt-1">₹${item.price}</p>
+                        <div class="flex items-center space-x-3 mt-2">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 rounded bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center text-xs">-</button>
+                            <span class="text-sm font-semibold">${item.quantity}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 rounded bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center text-xs">+</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            document.getElementById('cartSubtotal').textContent = `₹${subtotal}`;
+            document.getElementById('cartTotal').textContent = `₹${subtotal}`;
+        }
+
+        function toggleWishlist(productId) {
+            const product = products.find(p => p.id === productId);
+            const index = wishlist.findIndex(item => item.id === productId);
+
+            if (index > -1) {
+                wishlist.splice(index, 1);
+            } else {
+                wishlist.push(product);
+            }
+
+            updateBadges();
+            renderProducts();
+            renderWishlistItems();
+        }
+
+        function openWishlist() {
+            const modal = document.getElementById('wishlistModal');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                renderWishlistItems();
+            }
+        }
+
+        function renderWishlistItems() {
+            const container = document.getElementById('wishlistContainer');
+            container.innerHTML = '';
+
+            if (wishlist.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-16">
+                        <i class="fa-regular fa-heart text-4xl text-gray-300 mb-3"></i>
+                        <p class="text-gray-500 font-medium">Your wishlist is empty.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            wishlist.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "flex py-4 space-x-4 items-center justify-between";
+                div.innerHTML = `
+                    <div class="flex items-center space-x-4">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-20 object-cover rounded-lg bg-gray-100">
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-900">${item.name}</h4>
+                            <p class="text-sm font-bold text-gray-900 mt-1">₹${item.price}</p>
+                        </div>
+                    </div>
+                    <button onclick="toggleWishlist(${item.id})" class="text-rose-500 hover:text-rose-700 p-2">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+            alert('🎉 Order Placed Successfully! Thank you for shopping with Nikita Collections.');
+            cart = [];
+            updateBadges();
+            toggleCart();
+            renderProducts();
+        }
+    </script>
+</body>
+
+</html>
